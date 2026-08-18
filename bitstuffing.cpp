@@ -34,3 +34,7 @@ int main()
 
     return 0;
 }
+
+/*Enter the frame bits: 0111111001101111101
+
+Frame after Bit Stuffing: 011111010011011111001*/

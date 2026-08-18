@@ -90,3 +90,27 @@ cout << endl;
 return 0;
 
 }
+
+/*Enter data bits: 1011001
+
+Data Word: 1011001
+Number of Data Bits: 7
+Number of Redundant Bits: 4
+Total Number of Bits in Codeword: 11
+
+R1 - Analyze bits at: 1 3 5 7 9 11 
+Bits excluding R1: 10111
+Set R1 = 0
+
+R2 - Analyze bits at: 2 3 6 7 10 11 
+Bits excluding R2: 10101
+Set R2 = 1
+
+R4 - Analyze bits at: 4 5 6 7 
+Bits excluding R4: 001
+Set R4 = 1
+
+R8 - Analyze bits at: 8 9 10 11 
+Bits excluding R8: 101
+Set R8 = 0
+10101001110*/

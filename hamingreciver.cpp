@@ -116,3 +116,31 @@ cout << endl;
 return 0;
 
 }
+
+/*Enter received Hamming codeword: 10101001111            
+
+Number of bits in received codeword = 11
+Number of redundant bits = 4
+
+--------------------------------
+Analyzing Redundant Bits
+--------------------------------
+
+R1 - Analyze bits at: 1 3 5 7 9 11 
+Parity value = 1
+
+R2 - Analyze bits at: 2 3 6 7 10 11 
+Parity value = 0
+
+R4 - Analyze bits at: 4 5 6 7 
+Parity value = 0
+
+R8 - Analyze bits at: 8 9 10 11 
+Parity value = 0
+
+--------------------------------
+Syndrome = 0001
+Decimal equivalent = 1
+
+Error is located at 1th position.
+Corrected codeword is: 10101001110*/

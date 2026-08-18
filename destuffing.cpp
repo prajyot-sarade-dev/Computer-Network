@@ -35,3 +35,7 @@ int main()
 
     return 0;
 }
+
+/*Enter the stuffed frame: 011111010011011111001
+
+Original frame after Bit De-stuffing: 0111111001101111101*/
