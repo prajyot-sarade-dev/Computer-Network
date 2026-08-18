@@ -1,63 +1,99 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include <thread>
 #include <chrono>
+
 using namespace std;
 
 int main()
 {
     int n;
 
-    cout << "=============================\n";
-    cout << "      Stop and Wait ARQ\n";
-    cout << "=============================\n\n";
+    // Timer fixed at 3 seconds
+    const int TIMEOUT = 3;
 
-    cout << "Enter number of frames: ";
+    cout << "Stop and Wait ARQ\n\n";
+
+    // User decides number of frames
+    cout << "Enter the number of frames to be sent: ";
     cin >> n;
+
+    if (n <= 0)
+    {
+        cout << "Invalid number of frames.\n";
+        return 0;
+    }
+
+    srand(time(0));
+
+    // Randomly select one frame to be lost
+    int lostFrame = rand() % n + 1;
 
     for (int i = 1; i <= n; i++)
     {
-        int frame;
+        cout << "Sending Frame " << i << "...\n";
 
-        cout << "\nEnter frame number: ";
-        cin >> frame;
-
-        cout << "\nSending Frame " << frame << "...\n";
-
-        // Start timer
-        cout << "Timer started for Frame " << frame << "...\n";
-
-        // Simulate Frame 2 as lost
-        if (frame == 2)
+        // Simulate frame loss
+        if (i == lostFrame)
         {
-            cout << "Frame " << frame << " lost!\n";
+            cout << "Frame " << i << " lost!\n";
 
-            // Wait for timeout
-            this_thread::sleep_for(chrono::seconds(3));
+            cout << "Timer started for "
+                 << TIMEOUT << " seconds...\n";
 
-            cout << "Timeout occurred after 3 seconds.\n";
-            cout << "Retransmitting Frame " << frame << "...\n";
+            // Wait for 3 seconds
+            this_thread::sleep_for(
+                chrono::seconds(TIMEOUT)
+            );
 
-            // Restart timer
-            cout << "Timer restarted for Frame " << frame << "...\n";
+            cout << "Timeout occurred.\n";
+            cout << "Retransmitting Frame " << i << "...\n";
 
-            this_thread::sleep_for(chrono::seconds(1));
+            cout << "Frame " << i
+                 << " received successfully.\n";
 
-            cout << "Frame " << frame << " received successfully.\n";
-            cout << "ACK " << frame << " received.\n";
-            cout << "Timer stopped.\n";
+            cout << "ACK " << i << " received.\n\n";
         }
         else
         {
-            // Simulate receiver response
-            this_thread::sleep_for(chrono::seconds(1));
+            cout << "Frame " << i
+                 << " received successfully.\n";
 
-            cout << "Frame " << frame << " received successfully.\n";
-            cout << "ACK " << frame << " received.\n";
-            cout << "Timer stopped.\n";
+            cout << "ACK " << i << " received.\n\n";
         }
     }
 
-    cout << "\nTransmission completed successfully.\n";
+    cout << "Transmission completed successfully.\n";
 
     return 0;
 }
+
+/*Stop and Wait ARQ
+
+Enter the number of frames to be sent: 5
+Sending Frame 1...
+Frame 1 received successfully.
+ACK 1 received.
+
+Sending Frame 2...
+Frame 2 received successfully.
+ACK 2 received.
+
+Sending Frame 3...
+Frame 3 lost!
+Timer started for 3 seconds...
+Timeout occurred.
+Retransmitting Frame 3...
+Frame 3 received successfully.
+ACK 3 received.
+
+Sending Frame 4...
+Frame 4 received successfully.
+ACK 4 received.
+
+Sending Frame 5...
+Frame 5 received successfully.
+ACK 5 received.
+
+Transmission completed successfully.*/
